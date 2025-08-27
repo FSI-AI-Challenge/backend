@@ -283,7 +283,7 @@ async def chat_stream(req: Request):
             if final_text:
                 for ch in final_text:
                     yield f'data: {json.dumps({"delta": ch}, ensure_ascii=False)}\n\n'
-                    await asyncio.sleep(0)
+                    await asyncio.sleep(0.02)
             else:
                 yield 'data: {"delta":"[empty final output]"}\n\n'
             yield "data: [DONE]\n\n"
