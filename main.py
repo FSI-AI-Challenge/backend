@@ -250,6 +250,17 @@ def last_user_message(messages):
             return m.get("content", "")
     return ""
 
+PROGRESS_MAP = {
+    "is_our_service": ("is_our_service",  "쿼리 분석 중..."),
+    "chatbot": ("chatbot", "챗봇 답변 생성 중..."),
+    "get_goal": ("get_goal", "사용자 목표 금액 및 기간 분석 중..."),
+    "load_profile": ("load_profile", "사용자 데이터 기반 투자 가능 금액 분석 중..."),
+    "hitl_confirm_input": ("hitl_confirm_input", "사용자 입력 검증 중..."),
+}
+
+def progress_event(step_id, status, label=None):
+    return f'data: {json.dumps({"kind":"progress","id":step_id,"status":status,"label":label}, ensure_ascii=False)}\n\n'
+
 @app.post("/api/chat/stream")
 async def chat_stream(req: Request):
     body = await req.json()
@@ -268,10 +279,24 @@ async def chat_stream(req: Request):
         final_text = ""
         try:
             async for ev in agent.astream_events(state_in, config=config, version="v1"): 
-                # print(ev) # ev로 마지막 노드명 확인해서 마지막 값만 출력
+                # print(ev) # ev로 마지막 노드명 확인하고 노드명도 변경해서 마지막 값만 출력
                 etype = ev.get("event")
-                name = ev.get("name")
-                if etype in ("on_chain_end", "on_graph_end") and name == "LangGraph":
+                node = ev.get("name")
+
+                # 🔹 진행 상태 전송
+                if etype == "on_chain_start":
+                    step = PROGRESS_MAP.get(node)
+                    if step:
+                        sid, label = step
+                        yield progress_event(sid, "running", label)
+
+                if etype == "on_chain_end":
+                    step = PROGRESS_MAP.get(node)
+                    if step:
+                        sid, _ = step
+                        yield progress_event(sid, "done")
+
+                if etype == "on_chain_end" and node == "LangGraph":
                     data = ev.get("data")
                     output = data.get("output")
                     chatbot = output.get("chatbot")
@@ -280,6 +305,7 @@ async def chat_stream(req: Request):
         except Exception as e:
             final_text = f"[server error] {type(e).__name__}: {e}"
         finally:
+            yield 'data: {"kind":"done"}\n\n'
             if final_text:
                 for ch in final_text:
                     yield f'data: {json.dumps({"delta": ch}, ensure_ascii=False)}\n\n'
