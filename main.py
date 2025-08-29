@@ -6,7 +6,7 @@ from enum import Enum
 from datetime import datetime, timezone, timedelta
 from langchain_ollama import ChatOllama
 import json
-import time
+import traceback
 
 llm = ChatOllama(model='gpt-oss:20b', streaming=True)
 
@@ -122,16 +122,14 @@ def load_profile(state:GraphState) -> GraphState:
 
 def hitl_confirm_input(state:GraphState) -> GraphState:
     print("사용자 입력 검증 시작")
-    proposed = {
-        "target_amount": state["goal"].target_amount,
-        "target_months": state["goal"].target_months,
-        "investable_amount": state["investable_amount"]
-    }
-    
     decision = interrupt({
         "step": "confirm_input",
         "message": "목표 금액/기간, 투자 가능 금액을 확인 및 수정해주세요.",
-        "proposed": proposed,
+        "proposed": {
+            "target_amount": state["goal"].target_amount,
+            "target_months": state["goal"].target_months,
+            "investable_amount": state["investable_amount"],
+        },
         "fields": [
             {"name": "target_amount", "type": "number", "label": "목표 금액(원)"},
             {"name": "target_months", "type": "number", "label": "목표 기간(개월)"},
@@ -140,9 +138,9 @@ def hitl_confirm_input(state:GraphState) -> GraphState:
         "buttons": ["submit"]
     })
     
-    target_amount = int(decision.get("target_amount", proposed["target_amount"]))
-    target_months = int(decision.get("target_months", proposed["target_months"]))
-    investable_amount = int(decision.get("investable_amount", proposed["investable_amount"]))
+    target_amount = int(decision.get("target_amount", state["goal"].target_amount))
+    target_months = int(decision.get("target_months", state["goal"].target_months))
+    investable_amount = int(decision.get("investable_amount", state["investable_amount"]))
 
     if target_amount < 0 or target_months < 0 or investable_amount < 0:
         raise ValueError("입력 값이 유효하지 않습니다.")
@@ -179,18 +177,20 @@ graph.add_node("load_profile", load_profile)
 graph.add_node("hitl_confirm_input", hitl_confirm_input)
 
 graph.set_entry_point("start")
-graph.add_conditional_edges(
-    "start",
-    is_our_service,
-    {
-        "yes":"get_goal",
-        "no":"chatbot"
-    }
-)
-graph.add_edge("get_goal", "load_profile")
-graph.add_edge("load_profile", 'hitl_confirm_input')
+graph.add_edge("start", "hitl_confirm_input")
 graph.add_edge("hitl_confirm_input", END)
-graph.add_edge("chatbot", END)
+# graph.add_conditional_edges(
+#     "start",
+#     is_our_service,
+#     {
+#         "yes":"get_goal",
+#         "no":"chatbot"
+#     }
+# )
+# graph.add_edge("get_goal", "load_profile")
+# graph.add_edge("load_profile", 'hitl_confirm_input')
+# graph.add_edge("hitl_confirm_input", END)
+# graph.add_edge("chatbot", END)
 
 from langgraph.checkpoint.memory import MemorySaver
 
@@ -214,6 +214,7 @@ from pydantic import BaseModel
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import StreamingResponse
+from langgraph.types import Command
 import asyncio
 import os
 
@@ -227,29 +228,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def chunk_to_text(x):
-    if x is None:
-        return ""
-    if isinstance(x, str):
-        return x
-    # LangChain 계열
-    c = getattr(x, "content", None)
-    if isinstance(c, str):
-        return c
-    if hasattr(x, "text"):
-        t = getattr(x, "text")
-        if isinstance(t, str):
-            return t
-    if isinstance(x, dict):
-        return x.get("content") or x.get("text") or x.get("output") or ""
-    return ""
-
-def last_user_message(messages):
-    for m in reversed(messages):
-        if m.get("role") == "user":
-            return m.get("content", "")
-    return ""
-
 PROGRESS_MAP = {
     "is_our_service": ("is_our_service",  "쿼리 분석 중..."),
     "chatbot": ("chatbot", "챗봇 답변 생성 중..."),
@@ -258,27 +236,30 @@ PROGRESS_MAP = {
     "hitl_confirm_input": ("hitl_confirm_input", "사용자 입력 검증 중..."),
 }
 
-def progress_event(step_id, status, label=None):
-    return f'data: {json.dumps({"kind":"progress","id":step_id,"status":status,"label":label}, ensure_ascii=False)}\n\n'
-
 @app.post("/api/chat/stream")
 async def chat_stream(req: Request):
     body = await req.json()
-    question = last_user_message(body.get("messages", []))
-
-    # ⚠️ TypedDict(GraphState)를 생성자처럼 호출하지 말고 dict 사용
-    state_in = {
-        "user_id": user_id,          # 너가 이미 모듈 전역에 둔 값들 그대로 사용
-        "created_ts": created_ts,
-        "question": question,
-        # 필요 시 다른 상태 키도 추가 가능: "messages": [], "goal": None, ...
-    }
+    
+    if 'resume' in body:
+        events = agent.astream_events(Command(resume=body.get('resume')), config=config, version="v1")
+    else:
+        question = next((m.get("content", "") for m in reversed(body.get("messages", [])) if m.get("role") == "user"), "")
+        state_in = {
+            "user_id": user_id,          
+            "created_ts": created_ts,
+            "question": question,
+            "goal":Goal(
+                target_amount=10000000,
+                target_months=6,
+            ),
+            "investable_amount":678000
+        }
+        events = agent.astream_events(state_in, config=config, version="v1")
 
     async def eventgen():
         yield 'data: {"delta":" "}\n\n'  # 핸드셰이크 (프론트 onDelta 트리거)
-        final_text = ""
         try:
-            async for ev in agent.astream_events(state_in, config=config, version="v1"): 
+            async for ev in events: 
                 # print(ev) # ev로 마지막 노드명 확인하고 노드명도 변경해서 마지막 값만 출력
                 etype = ev.get("event")
                 node = ev.get("name")
@@ -288,34 +269,47 @@ async def chat_stream(req: Request):
                     step = PROGRESS_MAP.get(node)
                     if step:
                         sid, label = step
-                        yield progress_event(sid, "running", label)
+                        yield f'data: {json.dumps({"kind":"progress","id":sid,"status":"running","label":label}, ensure_ascii=False)}\n\n'
 
                 if etype == "on_chain_end":
                     step = PROGRESS_MAP.get(node)
                     if step:
                         sid, _ = step
-                        yield progress_event(sid, "done")
+                        yield f'data: {json.dumps({"kind":"progress","id":sid,"status":"done"}, ensure_ascii=False)}\n\n'
 
-                if etype == "on_chain_end" and node == "LangGraph":
                     data = ev.get("data")
                     output = data.get("output")
-                    chatbot = output.get("chatbot")
-                    final_text = chatbot.get("answer")
-                    break
+
+                    if output:
+                        if '__interrupt__' in output:
+                            raw = output['__interrupt__']
+                            intr_obj = raw[0] if isinstance(raw, (list, tuple)) else raw
+                            intr_payload = {
+                                "value": getattr(intr_obj, "value", intr_obj),
+                                "id": getattr(intr_obj, "id", None),
+                            }
+                            yield f'data: {json.dumps({"kind":"interrupt","payload": intr_payload}, ensure_ascii=False)}\n\n'
+                            yield 'data: {"kind":"done"}\n\n'
+                            return
+
+                        # 일반 답변(예: chatbot 단계)을 delta로 흘려보내기
+                        out_text = ""
+                        if 'chatbot' in output:
+                            out_text = output.get("chatbot", {}).get("answer", "")
+                        # 필요시 다른 노드 출력도 합치기
+                        if out_text:
+                            yield 'data: {"kind":"done"}\n\n'
+                            for ch in out_text:
+                                yield f'data: {json.dumps({"delta": ch}, ensure_ascii=False)}\n\n'
+                                await asyncio.sleep(0.02)
+                            return
         except Exception as e:
-            final_text = f"[server error] {type(e).__name__}: {e}"
-        finally:
+            yield f'data: {json.dumps({"delta": f"[server error] {type(e).__name__}: {e}"}, ensure_ascii=False)}\n\n'
             yield 'data: {"kind":"done"}\n\n'
-            if final_text:
-                for ch in final_text:
-                    yield f'data: {json.dumps({"delta": ch}, ensure_ascii=False)}\n\n'
-                    await asyncio.sleep(0.02)
-            else:
-                yield 'data: {"delta":"[empty final output]"}\n\n'
-            yield "data: [DONE]\n\n"
+            return
 
     return StreamingResponse(
         eventgen(),
         media_type="text/event-stream",
-        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"}
     )
