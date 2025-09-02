@@ -5,8 +5,14 @@ from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime, timezone, timedelta
 from langchain_ollama import ChatOllama
+from langgraph.checkpoint.memory import MemorySaver
+from langchain_core.runnables import RunnableConfig
+from langchain_teddynote.messages import random_uuid
+from dateutil.relativedelta import relativedelta
+from collections import defaultdict
 import json
 import traceback
+from progress import PROGRESS_MAP
 
 llm = ChatOllama(model='gpt-oss:20b', streaming=True)
 
@@ -15,16 +21,13 @@ class Goal:
     target_amount: int
     target_months: int         
 
-@dataclass
-class IncomeExpense:
-    fixed_income: int                  # 월급(세후 등 기준 통일)
-    fixed_expense: int                   # 고정지출(월)
-
 class GraphState(TypedDict): 
     user_id: int
     created_ts: str
     question:str
     answer:str
+
+    route:str
 
     # 입력/프로필
     goal: Goal
@@ -33,8 +36,27 @@ class GraphState(TypedDict):
     # 대화 메시지 (LangChain messages)
     messages: Annotated[List, add_messages]
 
-def start(state:GraphState) -> GraphState:
-    return GraphState()
+def planner(state:GraphState) -> GraphState:
+    print("서비스 판단 시작")
+    question = state['question']
+
+    prompt = f'''
+        You are a routing agent that decides the next step in a workflow.  
+
+        Decide which node to go to next based on the user input.  
+        You MUST choose exactly one of the following nodes:
+        - "get_goal": when the user is asking about our financial planning / savings / investment service.
+        - "chatbot": when the user is making a general request or any query not related to our service.
+
+        User Input:
+        {question}
+
+        Return ONLY node name:
+        "get_goal" or "chatbot"
+    '''
+    response = llm.invoke(prompt)
+    print(f"서비스 판단 종료: {response.content}")
+    return GraphState(route=response.content)
 
 def chatbot(state:GraphState) -> GraphState:
     print("챗봇 시작")
@@ -75,49 +97,59 @@ def load_profile(state:GraphState) -> GraphState:
         user_profile = json.load(f)
 
     ts = datetime.fromisoformat(state["created_ts"])
-    current_year = ts.year
-    current_month = ts.month
+    recent_keys = [(ts - relativedelta(months=i)).strftime("%Y-%m") for i in range(1, 4)]
+    months = [m for m in user_profile["months"] if m["month"] in recent_keys]
 
-    recent_months = []
-    for i in range(3):
-        month = (current_month - i - 1) % 12 + 1
-        year = current_year if current_month - i > 0 else current_year - 1
-        recent_months.append(f"{year}-{month:02d}")
+    unique_pairs = sorted({(d["payee"], d["type"].upper()) for m in months for d in m["days"]})
+    items_for_llm = [{"payee": p, "direction": t} for (p, t) in unique_pairs]
 
-    recent_months = set(recent_months)
+    template = """
+        You are a strict finance transaction labeler.
 
-    filtered_months = [
-        m for m in user_profile["months"] if m["month"] in recent_months
-    ]
+        For each item, classify into EXACTLY one category based on its direction:
 
-    template = '''
-        You are an assistant that analyzes personal finance transaction data.
+        - If direction == "INCOME":
+            choose one of: ["FIXED_INCOME", "OTHER"]
+            (salary/wages/regular payroll/interest/dividends → FIXED_INCOME)
 
-        Tasks:
-        1) Identify the average fixed income per month.
-        2) Identify the average fixed expenses per month.
-        3) Identify the average variable expenses per month.
-        4) Compute the average investable amount per month = fixed_income - (fixed_expenses + variable_expenses).
+        - If direction == "EXPENSE":
+            choose one of: ["FIXED_EXPENSE", "VARIABLE_EXPENSE", "OTHER"]
+            (rent/insurance/telecom/utilities/loan/subscription → FIXED_EXPENSE;
+            food/shopping/entertainment/transport/leisure → VARIABLE_EXPENSE)
 
-        Return ONLY valid JSON, no markdown, no code block. 
-        Keys:
-        - fixed_income (int)
-        - fixed_expenses (int)
-        - variable_expenses (int)
-        - investable_amount (int)
+        Do NOT infer direction yourself; use the provided "direction".
 
-        User Input:
-        {}
-    '''
-    prompt = template.format(filtered_months)
+        Return ONLY valid JSON array like:
+        [
+        {{"payee":"청계하우스","category":"FIXED_EXPENSE"}},
+        {{"payee":"ABC주식회사","category":"FIXED_INCOME"}}
+        ]
 
+        Items to classify:
+        {items}
+    """
+    prompt = template.format(items=json.dumps(items_for_llm, ensure_ascii=False))
     response = llm.invoke(prompt)
-    print(response)
     data = json.loads(response.content)
+    mapping = {x["payee"]: x["category"] for x in data}
 
-    print(f"사용자 수입 및 지출 계산 종료: {data}")
+    sums = defaultdict(int)
+    for m in months:
+        for d in m["days"]:
+            cat = mapping.get(d["payee"], "OTHER")
+            amt = d["amount"]
+            if d["type"] == "income":
+                sums[cat] += amt
+            elif d["type"] == "expense":
+                sums[cat] -= amt
+
+    fixed_income = sums["FIXED_INCOME"] // len(months)
+    fixed_expenses = abs(sums["FIXED_EXPENSE"]) // len(months)
+    variable_expenses = abs(sums["VARIABLE_EXPENSE"]) // len(months)
+    investable_amount = fixed_income - (fixed_expenses + variable_expenses)
+    print(f"사용자 수입 및 지출 계산 종료: {investable_amount}")
     return GraphState(
-        investable_amount=int(data["investable_amount"])
+        investable_amount=investable_amount
     )
 
 def hitl_confirm_input(state:GraphState) -> GraphState:
@@ -137,13 +169,9 @@ def hitl_confirm_input(state:GraphState) -> GraphState:
         ],
         "buttons": ["submit"]
     })
-    
     target_amount = int(decision.get("target_amount", state["goal"].target_amount))
     target_months = int(decision.get("target_months", state["goal"].target_months))
     investable_amount = int(decision.get("investable_amount", state["investable_amount"]))
-
-    if target_amount < 0 or target_months < 0 or investable_amount < 0:
-        raise ValueError("입력 값이 유효하지 않습니다.")
 
     print(f"사용자 입력 검증 종료: {target_amount, target_months, investable_amount}")
     return GraphState(
@@ -154,51 +182,30 @@ def hitl_confirm_input(state:GraphState) -> GraphState:
         investable_amount=int(investable_amount)
     )
 
-def is_our_service(state:GraphState) -> str:
-    print("서비스 판단 시작")
-    question = state['question']
-
-    prompt = f'''
-        You are a classifier. Decide whether the user's message expresses intent to use a savings or investment guidance service.
-        Answer only yes or no.
-
-        User Input: {question}
-    '''
-    response = llm.invoke(prompt)
-    print(f"서비스 판단 종료: {response.content}")
-    return response.content
-
 graph = StateGraph(GraphState)
 
-graph.add_node("start", start)
+graph.add_node("planner", planner)
 graph.add_node("chatbot", chatbot)
 graph.add_node("get_goal", get_goal)
 graph.add_node("load_profile", load_profile)
 graph.add_node("hitl_confirm_input", hitl_confirm_input)
 
-graph.set_entry_point("start")
-graph.add_edge("start", "hitl_confirm_input")
+graph.set_entry_point("planner")
+graph.add_conditional_edges(
+    "planner",
+    lambda s: s.get("route", "chatbot"),
+    {
+        "get_goal":"get_goal",
+        "chatbot":"chatbot"
+    }
+)
+graph.add_edge("get_goal", "load_profile")
+graph.add_edge("load_profile", 'hitl_confirm_input')
 graph.add_edge("hitl_confirm_input", END)
-# graph.add_conditional_edges(
-#     "start",
-#     is_our_service,
-#     {
-#         "yes":"get_goal",
-#         "no":"chatbot"
-#     }
-# )
-# graph.add_edge("get_goal", "load_profile")
-# graph.add_edge("load_profile", 'hitl_confirm_input')
-# graph.add_edge("hitl_confirm_input", END)
-# graph.add_edge("chatbot", END)
-
-from langgraph.checkpoint.memory import MemorySaver
+graph.add_edge("chatbot", END)
 
 memory = MemorySaver()
 agent = graph.compile(checkpointer=memory)
-
-from langchain_core.runnables import RunnableConfig
-from langchain_teddynote.messages import invoke_graph, stream_graph, random_uuid
 
 KST = timezone(timedelta(hours=9))
 
@@ -228,14 +235,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-PROGRESS_MAP = {
-    "is_our_service": ("is_our_service",  "쿼리 분석 중..."),
-    "chatbot": ("chatbot", "챗봇 답변 생성 중..."),
-    "get_goal": ("get_goal", "사용자 목표 금액 및 기간 분석 중..."),
-    "load_profile": ("load_profile", "사용자 데이터 기반 투자 가능 금액 분석 중..."),
-    "hitl_confirm_input": ("hitl_confirm_input", "사용자 입력 검증 중..."),
-}
-
 @app.post("/api/chat/stream")
 async def chat_stream(req: Request):
     body = await req.json()
@@ -248,16 +247,10 @@ async def chat_stream(req: Request):
             "user_id": user_id,          
             "created_ts": created_ts,
             "question": question,
-            "goal":Goal(
-                target_amount=10000000,
-                target_months=6,
-            ),
-            "investable_amount":678000
         }
         events = agent.astream_events(state_in, config=config, version="v1")
 
     async def eventgen():
-        yield 'data: {"delta":" "}\n\n'  # 핸드셰이크 (프론트 onDelta 트리거)
         try:
             async for ev in events: 
                 # print(ev) # ev로 마지막 노드명 확인하고 노드명도 변경해서 마지막 값만 출력
@@ -280,7 +273,7 @@ async def chat_stream(req: Request):
                     data = ev.get("data")
                     output = data.get("output")
 
-                    if output:
+                    if isinstance(output, dict):
                         if '__interrupt__' in output:
                             raw = output['__interrupt__']
                             intr_obj = raw[0] if isinstance(raw, (list, tuple)) else raw
@@ -288,8 +281,8 @@ async def chat_stream(req: Request):
                                 "value": getattr(intr_obj, "value", intr_obj),
                                 "id": getattr(intr_obj, "id", None),
                             }
-                            yield f'data: {json.dumps({"kind":"interrupt","payload": intr_payload}, ensure_ascii=False)}\n\n'
                             yield 'data: {"kind":"done"}\n\n'
+                            yield f'data: {json.dumps({"kind":"interrupt","payload": intr_payload}, ensure_ascii=False)}\n\n'
                             return
 
                         # 일반 답변(예: chatbot 단계)을 delta로 흘려보내기
@@ -306,6 +299,7 @@ async def chat_stream(req: Request):
         except Exception as e:
             yield f'data: {json.dumps({"delta": f"[server error] {type(e).__name__}: {e}"}, ensure_ascii=False)}\n\n'
             yield 'data: {"kind":"done"}\n\n'
+            traceback.print_exc()
             return
 
     return StreamingResponse(
