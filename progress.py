@@ -4,4 +4,8 @@ PROGRESS_MAP = {
     "get_goal": ("get_goal", "사용자 목표 금액 및 기간 분석 중..."),
     "load_profile": ("load_profile", "사용자 데이터 기반 투자 가능 금액 분석 중..."),
     "hitl_confirm_input": ("hitl_confirm_input", "사용자 입력 검증 중..."),
+    "select_fin_prdt": ("select_fin_prdt", "안전 자산 조회 중..."),
+    "select_stock_products": ("select_stock_products", "위험 자산 조회 중..."),
+    "build_indicators": ("build_indicators", "포트폴리오 후보 생성 중..."),
+    "build_portfolios": ("build_portfolios", "포트폴리오 생성 중..."),
 }

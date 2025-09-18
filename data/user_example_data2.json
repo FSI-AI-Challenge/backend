@@ -1,0 +1,248 @@
+{
+  "user_id": "2",
+  "year": 2025,
+  "months": [
+    {
+      "month": "2025-01",
+      "days": [
+        {"date": "2025-01-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-01-02", "type": "expense", "amount": 55000, "payee": "U+알뜰모바일"},
+        {"date": "2025-01-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-01-05", "type": "income", "amount": 900000, "payee": "클라이언트A"},
+        {"date": "2025-01-08", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-01-10", "type": "income", "amount": 600000, "payee": "네이버"},
+        {"date": "2025-01-12", "type": "expense", "amount": 94000, "payee": "이마트"},
+        {"date": "2025-01-13", "type": "expense", "amount": 16500, "payee": "스타벅스"},
+        {"date": "2025-01-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-01-18", "type": "expense", "amount": 21000, "payee": "서울교통공사"},
+        {"date": "2025-01-20", "type": "expense", "amount": 17000, "payee": "카카오 T"},
+        {"date": "2025-01-23", "type": "income", "amount": 700000, "payee": "클라이언트B"},
+        {"date": "2025-01-26", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-01-28", "type": "expense", "amount": 72000, "payee": "한국전력"},
+        {"date": "2025-01-30", "type": "income", "amount": 300000, "payee": "토스"}
+      ]
+    },
+    {
+      "month": "2025-02",
+      "days": [
+        {"date": "2025-02-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-02-02", "type": "expense", "amount": 56000, "payee": "U+알뜰모바일"},
+        {"date": "2025-02-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-02-04", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-02-05", "type": "income", "amount": 700000, "payee": "클라이언트A"},
+        {"date": "2025-02-08", "type": "expense", "amount": 118000, "payee": "코스트코"},
+        {"date": "2025-02-10", "type": "income", "amount": 450000, "payee": "네이버"},
+        {"date": "2025-02-12", "type": "expense", "amount": 86000, "payee": "이마트"},
+        {"date": "2025-02-13", "type": "expense", "amount": 15500, "payee": "메가커피"},
+        {"date": "2025-02-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-02-18", "type": "income", "amount": 600000, "payee": "클라이언트C"},
+        {"date": "2025-02-20", "type": "expense", "amount": 23000, "payee": "서울교통공사"},
+        {"date": "2025-02-24", "type": "expense", "amount": 49000, "payee": "서울도시가스"},
+        {"date": "2025-02-26", "type": "expense", "amount": 68000, "payee": "한국전력"},
+        {"date": "2025-02-27", "type": "expense", "amount": 335000, "payee": "쿠팡"},
+        {"date": "2025-02-28", "type": "expense", "amount": 142000, "payee": "배달의민족"}
+      ]
+    },
+    {
+      "month": "2025-03",
+      "days": [
+        {"date": "2025-03-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-03-02", "type": "expense", "amount": 55000, "payee": "U+알뜰모바일"},
+        {"date": "2025-03-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-03-05", "type": "income", "amount": 1500000, "payee": "클라이언트B"},
+        {"date": "2025-03-06", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-03-09", "type": "expense", "amount": 101000, "payee": "이마트"},
+        {"date": "2025-03-11", "type": "income", "amount": 700000, "payee": "네이버"},
+        {"date": "2025-03-12", "type": "expense", "amount": 17500, "payee": "스타벅스"},
+        {"date": "2025-03-13", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-03-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-03-17", "type": "income", "amount": 1300000, "payee": "클라이언트D"},
+        {"date": "2025-03-20", "type": "expense", "amount": 24000, "payee": "서울교통공사"},
+        {"date": "2025-03-23", "type": "expense", "amount": 68000, "payee": "한국전력"},
+        {"date": "2025-03-27", "type": "income", "amount": 300000, "payee": "토스"},
+        {"date": "2025-03-29", "type": "expense", "amount": 96000, "payee": "롯데마트"}
+      ]
+    },
+    {
+      "month": "2025-04",
+      "days": [
+        {"date": "2025-04-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-04-02", "type": "expense", "amount": 57000, "payee": "U+알뜰모바일"},
+        {"date": "2025-04-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-04-04", "type": "expense", "amount": 39000, "payee": "Adobe"},
+        {"date": "2025-04-06", "type": "income", "amount": 1100000, "payee": "클라이언트E"},
+        {"date": "2025-04-08", "type": "expense", "amount": 62000, "payee": "이마트"},
+        {"date": "2025-04-09", "type": "expense", "amount": 21000, "payee": "서울교통공사"},
+        {"date": "2025-04-11", "type": "income", "amount": 800000, "payee": "네이버"},
+        {"date": "2025-04-13", "type": "expense", "amount": 15500, "payee": "메가커피"},
+        {"date": "2025-04-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-04-19", "type": "income", "amount": 1000000, "payee": "클라이언트F"},
+        {"date": "2025-04-22", "type": "expense", "amount": 68000, "payee": "한국전력"},
+        {"date": "2025-04-24", "type": "expense", "amount": 51000, "payee": "서울도시가스"},
+        {"date": "2025-04-26", "type": "expense", "amount": 287000, "payee": "무신사"},
+        {"date": "2025-04-28", "type": "expense", "amount": 139000, "payee": "에버랜드"}
+      ]
+    },
+    {
+      "month": "2025-05",
+      "days": [
+        {"date": "2025-05-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-05-02", "type": "expense", "amount": 55000, "payee": "U+알뜰모바일"},
+        {"date": "2025-05-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-05-07", "type": "income", "amount": 1600000, "payee": "클라이언트B"},
+        {"date": "2025-05-08", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-05-10", "type": "income", "amount": 500000, "payee": "네이버"},
+        {"date": "2025-05-12", "type": "expense", "amount": 88000, "payee": "코스트코"},
+        {"date": "2025-05-14", "type": "expense", "amount": 16700, "payee": "스타벅스"},
+        {"date": "2025-05-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-05-18", "type": "income", "amount": 900000, "payee": "클라이언트C"},
+        {"date": "2025-05-21", "type": "expense", "amount": 23000, "payee": "서울교통공사"},
+        {"date": "2025-05-23", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-05-26", "type": "expense", "amount": 67000, "payee": "한국전력"},
+        {"date": "2025-05-28", "type": "expense", "amount": 420000, "payee": "쿠팡"},
+        {"date": "2025-05-30", "type": "income", "amount": 320000, "payee": "토스"}
+      ]
+    },
+    {
+      "month": "2025-06",
+      "days": [
+        {"date": "2025-06-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-06-02", "type": "expense", "amount": 56000, "payee": "U+알뜰모바일"},
+        {"date": "2025-06-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-06-04", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-06-06", "type": "income", "amount": 1000000, "payee": "클라이언트D"},
+        {"date": "2025-06-09", "type": "expense", "amount": 101000, "payee": "이마트"},
+        {"date": "2025-06-11", "type": "income", "amount": 600000, "payee": "네이버"},
+        {"date": "2025-06-13", "type": "expense", "amount": 15800, "payee": "메가커피"},
+        {"date": "2025-06-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-06-18", "type": "expense", "amount": 68000, "payee": "한국전력"},
+        {"date": "2025-06-20", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-06-22", "type": "income", "amount": 1400000, "payee": "클라이언트E"},
+        {"date": "2025-06-24", "type": "expense", "amount": 23000, "payee": "서울교통공사"},
+        {"date": "2025-06-26", "type": "expense", "amount": 285000, "payee": "무신사"},
+        {"date": "2025-06-29", "type": "expense", "amount": 198000, "payee": "쿠팡"}
+      ]
+    },
+    {
+      "month": "2025-07",
+      "days": [
+        {"date": "2025-07-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-07-02", "type": "expense", "amount": 56000, "payee": "U+알뜰모바일"},
+        {"date": "2025-07-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-07-05", "type": "income", "amount": 950000, "payee": "클라이언트G"},
+        {"date": "2025-07-06", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-07-09", "type": "expense", "amount": 122000, "payee": "이마트"},
+        {"date": "2025-07-11", "type": "income", "amount": 800000, "payee": "네이버"},
+        {"date": "2025-07-14", "type": "expense", "amount": 14500, "payee": "스타벅스"},
+        {"date": "2025-07-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-07-17", "type": "income", "amount": 500000, "payee": "클라이언트H"},
+        {"date": "2025-07-20", "type": "expense", "amount": 21000, "payee": "서울교통공사"},
+        {"date": "2025-07-22", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-07-24", "type": "expense", "amount": 69000, "payee": "한국전력"},
+        {"date": "2025-07-25", "type": "expense", "amount": 280000, "payee": "쿠팡"},
+        {"date": "2025-07-28", "type": "expense", "amount": 159000, "payee": "CGV"},
+        {"date": "2025-07-30", "type": "income", "amount": 300000, "payee": "토스"}
+      ]
+    },
+    {
+      "month": "2025-08",
+      "days": [
+        {"date": "2025-08-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-08-02", "type": "expense", "amount": 55000, "payee": "U+알뜰모바일"},
+        {"date": "2025-08-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-08-04", "type": "expense", "amount": 39000, "payee": "Adobe"},
+        {"date": "2025-08-06", "type": "income", "amount": 1100000, "payee": "클라이언트I"},
+        {"date": "2025-08-08", "type": "expense", "amount": 182000, "payee": "코스트코"},
+        {"date": "2025-08-10", "type": "income", "amount": 400000, "payee": "네이버"},
+        {"date": "2025-08-13", "type": "expense", "amount": 16400, "payee": "메가커피"},
+        {"date": "2025-08-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-08-17", "type": "income", "amount": 600000, "payee": "클라이언트J"},
+        {"date": "2025-08-19", "type": "expense", "amount": 25000, "payee": "서울교통공사"},
+        {"date": "2025-08-22", "type": "expense", "amount": 53000, "payee": "서울도시가스"},
+        {"date": "2025-08-24", "type": "expense", "amount": 72000, "payee": "한국전력"},
+        {"date": "2025-08-26", "type": "expense", "amount": 390000, "payee": "무신사"},
+        {"date": "2025-08-28", "type": "expense", "amount": 230000, "payee": "에버랜드"}
+      ]
+    },
+    {
+      "month": "2025-09",
+      "days": [
+        {"date": "2025-09-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-09-02", "type": "expense", "amount": 56000, "payee": "U+알뜰모바일"},
+        {"date": "2025-09-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-09-04", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-09-06", "type": "income", "amount": 800000, "payee": "클라이언트K"},
+        {"date": "2025-09-09", "type": "expense", "amount": 92000, "payee": "이마트"},
+        {"date": "2025-09-11", "type": "income", "amount": 400000, "payee": "네이버"},
+        {"date": "2025-09-13", "type": "expense", "amount": 17500, "payee": "스타벅스"},
+        {"date": "2025-09-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-09-17", "type": "income", "amount": 550000, "payee": "클라이언트L"},
+        {"date": "2025-09-20", "type": "expense", "amount": 26000, "payee": "서울교통공사"},
+        {"date": "2025-09-22", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-09-23", "type": "expense", "amount": 71000, "payee": "한국전력"},
+        {"date": "2025-09-25", "type": "expense", "amount": 285000, "payee": "쿠팡"},
+        {"date": "2025-09-28", "type": "expense", "amount": 174000, "payee": "롯데마트"}
+      ]
+    },
+    {
+      "month": "2025-10",
+      "days": [
+        {"date": "2025-10-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-10-02", "type": "expense", "amount": 55000, "payee": "U+알뜰모바일"},
+        {"date": "2025-10-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-10-05", "type": "income", "amount": 1300000, "payee": "클라이언트M"},
+        {"date": "2025-10-07", "type": "expense", "amount": 39000, "payee": "Adobe"},
+        {"date": "2025-10-09", "type": "expense", "amount": 114000, "payee": "이마트"},
+        {"date": "2025-10-11", "type": "income", "amount": 700000, "payee": "네이버"},
+        {"date": "2025-10-13", "type": "expense", "amount": 18700, "payee": "메가커피"},
+        {"date": "2025-10-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-10-18", "type": "expense", "amount": 23000, "payee": "서울교통공사"},
+        {"date": "2025-10-20", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-10-22", "type": "expense", "amount": 72000, "payee": "한국전력"},
+        {"date": "2025-10-25", "type": "income", "amount": 1200000, "payee": "클라이언트N"},
+        {"date": "2025-10-27", "type": "expense", "amount": 380000, "payee": "쿠팡"},
+        {"date": "2025-10-30", "type": "expense", "amount": 210000, "payee": "교보문고"}
+      ]
+    },
+    {
+      "month": "2025-11",
+      "days": [
+        {"date": "2025-11-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-11-02", "type": "expense", "amount": 57000, "payee": "U+알뜰모바일"},
+        {"date": "2025-11-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-11-04", "type": "expense", "amount": 38000, "payee": "Adobe"},
+        {"date": "2025-11-06", "type": "income", "amount": 900000, "payee": "클라이언트O"},
+        {"date": "2025-11-08", "type": "expense", "amount": 131000, "payee": "이마트"},
+        {"date": "2025-11-10", "type": "income", "amount": 350000, "payee": "네이버"},
+        {"date": "2025-11-12", "type": "expense", "amount": 17800, "payee": "스타벅스"},
+        {"date": "2025-11-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-11-18", "type": "income", "amount": 500000, "payee": "클라이언트P"},
+        {"date": "2025-11-20", "type": "expense", "amount": 24000, "payee": "서울교통공사"},
+        {"date": "2025-11-22", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-11-23", "type": "expense", "amount": 73000, "payee": "한국전력"},
+        {"date": "2025-11-26", "type": "expense", "amount": 320000, "payee": "쿠팡"},
+        {"date": "2025-11-28", "type": "expense", "amount": 245000, "payee": "CGV"}
+      ]
+    },
+    {
+      "month": "2025-12",
+      "days": [
+        {"date": "2025-12-01", "type": "expense", "amount": 650000, "payee": "하이원오피스텔"},
+        {"date": "2025-12-02", "type": "expense", "amount": 55000, "payee": "U+알뜰모바일"},
+        {"date": "2025-12-03", "type": "expense", "amount": 12900, "payee": "Spotify"},
+        {"date": "2025-12-04", "type": "expense", "amount": 39000, "payee": "Adobe"},
+        {"date": "2025-12-06", "type": "income", "amount": 1600000, "payee": "클라이언트Q"},
+        {"date": "2025-12-09", "type": "expense", "amount": 158000, "payee": "코스트코"},
+        {"date": "2025-12-11", "type": "income", "amount": 600000, "payee": "네이버"},
+        {"date": "2025-12-13", "type": "expense", "amount": 19800, "payee": "메가커피"},
+        {"date": "2025-12-15", "type": "expense", "amount": 100000, "payee": "DB손해보험"},
+        {"date": "2025-12-17", "type": "income", "amount": 900000, "payee": "클라이언트R"},
+        {"date": "2025-12-20", "type": "expense", "amount": 23000, "payee": "서울교통공사"},
+        {"date": "2025-12-22", "type": "expense", "amount": 53000, "payee": "서울도시가스"},
+        {"date": "2025-12-24", "type": "expense", "amount": 71000, "payee": "한국전력"},
+        {"date": "2025-12-26", "type": "expense", "amount": 580000, "payee": "쿠팡"},
+        {"date": "2025-12-28", "type": "expense", "amount": 420000, "payee": "롯데백화점"}
+      ]
+    }
+  ]
+}

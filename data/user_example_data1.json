@@ -1,0 +1,264 @@
+{
+  "user_id": "1",
+  "year": 2025,
+  "months": [
+    {
+      "month": "2025-01",
+      "days": [
+        {"date": "2025-01-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},    
+        {"date": "2025-01-01", "type": "expense", "amount": 47000, "payee": "KT"},             
+        {"date": "2025-01-03", "type": "expense", "amount": 12500, "payee": "투썸플레이스"},   
+        {"date": "2025-01-05", "type": "expense", "amount": 91000, "payee": "이마트"},        
+        {"date": "2025-01-06", "type": "expense", "amount": 120000, "payee": "한빛생명"},       
+        {"date": "2025-01-10", "type": "expense", "amount": 43000, "payee": "CGV"},           
+        {"date": "2025-01-13", "type": "expense", "amount": 27000, "payee": "GS25"},        
+        {"date": "2025-01-15", "type": "expense", "amount": 150000, "payee": "우리은행"}, 
+        {"date": "2025-01-18", "type": "expense", "amount": 21000, "payee": "버거킹"},         
+        {"date": "2025-01-20", "type": "expense", "amount": 36000, "payee": "홈플러스"},      
+        {"date": "2025-01-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},     
+        {"date": "2025-01-27", "type": "expense", "amount": 19000, "payee": "카카오T"},     
+        {"date": "2025-01-31", "type": "expense", "amount": 52000, "payee": "서울도시가스"}      
+      ]
+    },
+    {
+      "month": "2025-02",
+      "days": [
+        {"date": "2025-02-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-02-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-02-02", "type": "expense", "amount": 65000, "payee": "홈플러스"},
+        {"date": "2025-02-04", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-02-07", "type": "expense", "amount": 43000, "payee": "CGV"},
+        {"date": "2025-02-10", "type": "expense", "amount": 135000, "payee": "이마트"},
+        {"date": "2025-02-12", "type": "expense", "amount": 87000, "payee": "SRT"},
+        {"date": "2025-02-13", "type": "expense", "amount": 52000, "payee": "서울도시가스"},
+        {"date": "2025-02-14", "type": "expense", "amount": 28000, "payee": "파리바게뜨"},
+        {"date": "2025-02-15", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-02-17", "type": "expense", "amount": 65000, "payee": "롯데백화점"},
+        {"date": "2025-02-18", "type": "expense", "amount": 32000, "payee": "버거킹"},
+        {"date": "2025-02-21", "type": "expense", "amount": 45000, "payee": "GS25"},
+        {"date": "2025-02-23", "type": "expense", "amount": 29000, "payee": "카카오T"},
+        {"date": "2025-02-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-02-26", "type": "expense", "amount": 72000, "payee": "하남돼지집"}
+      ]
+    },
+    {
+      "month": "2025-03",
+      "days": [
+        {"date": "2025-03-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-03-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-03-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-03-05", "type": "expense", "amount": 72000, "payee": "이마트"},
+        {"date": "2025-03-07", "type": "expense", "amount": 35000, "payee": "버거킹"},
+        {"date": "2025-03-08", "type": "expense", "amount": 64000, "payee": "롯데마트"},
+        {"date": "2025-03-10", "type": "expense", "amount": 89000, "payee": "서울대병원"}, 
+        {"date": "2025-03-12", "type": "expense", "amount": 43000, "payee": "CGV"},
+        {"date": "2025-03-15", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-03-18", "type": "expense", "amount": 28000, "payee": "스타벅스"},
+        {"date": "2025-03-21", "type": "expense", "amount": 46000, "payee": "GS25"},
+        {"date": "2025-03-23", "type": "expense", "amount": 31000, "payee": "카카오T"},
+        {"date": "2025-03-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-03-26", "type": "expense", "amount": 120000, "payee": "현대백화점"},
+        {"date": "2025-03-31", "type": "expense", "amount": 56000, "payee": "서울도시가스"}
+      ]
+    },
+    {
+      "month": "2025-04",
+      "days": [
+        {"date": "2025-04-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-04-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-04-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-04-04", "type": "expense", "amount": 55000, "payee": "이마트"},
+        {"date": "2025-04-06", "type": "expense", "amount": 32000, "payee": "스타벅스"},
+        {"date": "2025-04-07", "type": "expense", "amount": 72000, "payee": "롯데마트"},
+        {"date": "2025-04-10", "type": "expense", "amount": 93000, "payee": "KTX"}, 
+        {"date": "2025-04-12", "type": "expense", "amount": 43000, "payee": "CGV"},
+        {"date": "2025-04-13", "type": "expense", "amount": 28000, "payee": "GS25"},
+        {"date": "2025-04-14", "type": "expense", "amount": 65000, "payee": "남산한옥마을"}, 
+        {"date": "2025-04-15", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-04-18", "type": "expense", "amount": 38000, "payee": "버거킹"},
+        {"date": "2025-04-21", "type": "expense", "amount": 24000, "payee": "카카오T"},
+        {"date": "2025-04-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-04-27", "type": "expense", "amount": 145000, "payee": "무신사"}, 
+        {"date": "2025-04-30", "type": "expense", "amount": 61000, "payee": "서울도시가스"}
+      ]
+    },
+    {
+      "month": "2025-05",
+      "days": [
+        {"date": "2025-05-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-05-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-05-03", "type": "expense", "amount": 58000, "payee": "이마트"}, 
+        {"date": "2025-05-04", "type": "expense", "amount": 150000, "payee": "토이저러스"}, 
+        {"date": "2025-05-05", "type": "expense", "amount": 82000, "payee": "롯데월드"},  
+        {"date": "2025-05-06", "type": "expense", "amount": 120000, "payee": "한빛생명"}, 
+        {"date": "2025-05-08", "type": "expense", "amount": 200000, "payee": "현대백화점"}, 
+        {"date": "2025-05-10", "type": "expense", "amount": 56000, "payee": "GS25"},
+        {"date": "2025-05-12", "type": "expense", "amount": 43000, "payee": "CGV"},
+        {"date": "2025-05-15", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-05-17", "type": "expense", "amount": 98000, "payee": "코스트코"}, 
+        {"date": "2025-05-19", "type": "expense", "amount": 37000, "payee": "버거킹"},
+        {"date": "2025-05-21", "type": "expense", "amount": 25000, "payee": "카카오T"},
+        {"date": "2025-05-23", "type": "expense", "amount": 60000, "payee": "서울도시가스"},
+        {"date": "2025-05-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-05-30", "type": "expense", "amount": 110000, "payee": "금성한우"}
+      ]
+    },
+    {
+      "month": "2025-06",
+      "days": [
+        {"date": "2025-06-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-06-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-06-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-06-05", "type": "expense", "amount": 72000, "payee": "이마트"},
+        {"date": "2025-06-07", "type": "expense", "amount": 36000, "payee": "스타벅스"},
+        {"date": "2025-06-08", "type": "expense", "amount": 98000, "payee": "코스트코"},
+        {"date": "2025-06-10", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-06-12", "type": "expense", "amount": 55000, "payee": "CGV"},
+        {"date": "2025-06-15", "type": "expense", "amount": 88000, "payee": "롯데마트"},
+        {"date": "2025-06-18", "type": "expense", "amount": 134000, "payee": "하나투어"},
+        {"date": "2025-06-20", "type": "expense", "amount": 28000, "payee": "GS25"},
+        {"date": "2025-06-22", "type": "expense", "amount": 43000, "payee": "버거킹"},
+        {"date": "2025-06-23", "type": "expense", "amount": 64000, "payee": "서울도시가스"},
+        {"date": "2025-06-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-06-28", "type": "expense", "amount": 152000, "payee": "아시아나항공"},
+        {"date": "2025-06-30", "type": "expense", "amount": 97000, "payee": "스위트스시"}
+      ]
+    },
+    {
+      "month": "2025-07",
+      "days": [
+        {"date": "2025-07-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-07-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-07-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-07-04", "type": "expense", "amount": 68000, "payee": "이마트"},
+        {"date": "2025-07-06", "type": "expense", "amount": 98000, "payee": "코스트코"},
+        {"date": "2025-07-08", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-07-10", "type": "expense", "amount": 250000, "payee": "하나투어"},
+        {"date": "2025-07-11", "type": "expense", "amount": 420000, "payee": "에어비앤비"},
+        {"date": "2025-07-12", "type": "expense", "amount": 300000, "payee": "대한항공"},
+        {"date": "2025-07-13", "type": "expense", "amount": 75000, "payee": "CGV"},
+        {"date": "2025-07-15", "type": "expense", "amount": 42000, "payee": "스타벅스"},
+        {"date": "2025-07-18", "type": "expense", "amount": 31000, "payee": "GS25"},
+        {"date": "2025-07-20", "type": "expense", "amount": 87000, "payee": "롯데월드 워터파크"},
+        {"date": "2025-07-23", "type": "expense", "amount": 64000, "payee": "서울도시가스"},
+        {"date": "2025-07-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-07-27", "type": "expense", "amount": 128000, "payee": "새러데이"},
+        {"date": "2025-07-30", "type": "expense", "amount": 99000, "payee": "버거킹"}
+      ]
+    },
+    {
+      "month": "2025-08",
+      "days": [
+        {"date": "2025-08-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-08-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-08-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-08-04", "type": "expense", "amount": 72000, "payee": "이마트"},
+        {"date": "2025-08-06", "type": "expense", "amount": 88000, "payee": "코스트코"},
+        {"date": "2025-08-08", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-08-10", "type": "expense", "amount": 185000, "payee": "무신사"},
+        {"date": "2025-08-12", "type": "expense", "amount": 32000, "payee": "스타벅스"},
+        {"date": "2025-08-13", "type": "expense", "amount": 69000, "payee": "CGV"},
+        {"date": "2025-08-15", "type": "expense", "amount": 210000, "payee": "현대백화점"},
+        {"date": "2025-08-17", "type": "expense", "amount": 48000, "payee": "버거킹"},
+        {"date": "2025-08-19", "type": "expense", "amount": 26000, "payee": "GS25"},
+        {"date": "2025-08-21", "type": "expense", "amount": 64000, "payee": "서울도시가스"},
+        {"date": "2025-08-23", "type": "expense", "amount": 154000, "payee": "쿠팡"},
+        {"date": "2025-08-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-08-27", "type": "expense", "amount": 99000, "payee": "돼지집"},
+        {"date": "2025-08-30", "type": "expense", "amount": 35000, "payee": "카카오T"}
+      ]
+    },
+    {
+      "month": "2025-09",
+      "days": [
+        {"date": "2025-09-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-09-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-09-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-09-05", "type": "expense", "amount": 68000, "payee": "이마트"},
+        {"date": "2025-09-07", "type": "expense", "amount": 92000, "payee": "코스트코"},
+        {"date": "2025-09-08", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-09-10", "type": "expense", "amount": 260000, "payee": "현대백화점"},
+        {"date": "2025-09-12", "type": "expense", "amount": 145000, "payee": "KTX"},
+        {"date": "2025-09-13", "type": "expense", "amount": 195000, "payee": "롯데백화점"},
+        {"date": "2025-09-14", "type": "expense", "amount": 225000, "payee": "한식집"},
+        {"date": "2025-09-17", "type": "expense", "amount": 37000, "payee": "버거킹"},
+        {"date": "2025-09-19", "type": "expense", "amount": 26000, "payee": "GS25"},
+        {"date": "2025-09-21", "type": "expense", "amount": 64000, "payee": "서울도시가스"},
+        {"date": "2025-09-23", "type": "expense", "amount": 78000, "payee": "CGV"},
+        {"date": "2025-09-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-09-27", "type": "expense", "amount": 112000, "payee": "무신사"},
+        {"date": "2025-09-30", "type": "expense", "amount": 98000, "payee": "금성한우"}
+      ]
+    },
+    {
+      "month": "2025-10",
+      "days": [
+        {"date": "2025-10-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-10-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-10-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-10-04", "type": "expense", "amount": 62000, "payee": "이마트"},
+        {"date": "2025-10-05", "type": "expense", "amount": 195000, "payee": "남산 케이블카"},
+        {"date": "2025-10-07", "type": "expense", "amount": 87000, "payee": "코스트코"},
+        {"date": "2025-10-08", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-10-09", "type": "expense", "amount": 210000, "payee": "경주 한옥스테이"},
+        {"date": "2025-10-11", "type": "expense", "amount": 43000, "payee": "스타벅스"},
+        {"date": "2025-10-13", "type": "expense", "amount": 78000, "payee": "CGV"},
+        {"date": "2025-10-15", "type": "expense", "amount": 285000, "payee": "인터파크"},
+        {"date": "2025-10-17", "type": "expense", "amount": 25000, "payee": "GS25"},
+        {"date": "2025-10-20", "type": "expense", "amount": 39000, "payee": "버거킹"},
+        {"date": "2025-10-23", "type": "expense", "amount": 61000, "payee": "서울도시가스"},
+        {"date": "2025-10-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-10-27", "type": "expense", "amount": 118000, "payee": "무신사"},
+        {"date": "2025-10-29", "type": "expense", "amount": 152000, "payee": "롯데월드"},
+        {"date": "2025-10-31", "type": "expense", "amount": 96000, "payee": "롯데호텔"}
+      ]
+    },
+    {
+      "month": "2025-11",
+      "days": [
+        {"date": "2025-11-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-11-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-11-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-11-04", "type": "expense", "amount": 88000, "payee": "이마트"},
+        {"date": "2025-11-06", "type": "expense", "amount": 93000, "payee": "코스트코"},
+        {"date": "2025-11-08", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-11-10", "type": "expense", "amount": 275000, "payee": "쿠팡"},
+        {"date": "2025-11-12", "type": "expense", "amount": 320000, "payee": "현대백화점"},
+        {"date": "2025-11-14", "type": "expense", "amount": 67000, "payee": "스타벅스"},
+        {"date": "2025-11-16", "type": "expense", "amount": 180000, "payee": "김마트"},
+        {"date": "2025-11-18", "type": "expense", "amount": 26000, "payee": "GS25"},
+        {"date": "2025-11-20", "type": "expense", "amount": 39000, "payee": "버거킹"},
+        {"date": "2025-11-22", "type": "expense", "amount": 72000, "payee": "CGV"},
+        {"date": "2025-11-23", "type": "expense", "amount": 64000, "payee": "서울도시가스"},
+        {"date": "2025-11-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-11-27", "type": "expense", "amount": 158000, "payee": "롯데호텔"},
+        {"date": "2025-11-29", "type": "expense", "amount": 134000, "payee": "무신사"},
+        {"date": "2025-11-30", "type": "expense", "amount": 97000, "payee": "쿠우쿠우"}
+      ]
+    },
+    {
+      "month": "2025-12",
+      "days": [
+        {"date": "2025-12-01", "type": "expense", "amount": 800000, "payee": "청계하우스"},
+        {"date": "2025-12-01", "type": "expense", "amount": 47000, "payee": "KT"},
+        {"date": "2025-12-03", "type": "expense", "amount": 120000, "payee": "한빛생명"},
+        {"date": "2025-12-05", "type": "expense", "amount": 93000, "payee": "이마트"},
+        {"date": "2025-12-07", "type": "expense", "amount": 112000, "payee": "코스트코"},
+        {"date": "2025-12-08", "type": "expense", "amount": 150000, "payee": "우리은행"},
+        {"date": "2025-12-10", "type": "expense", "amount": 275000, "payee": "현대백화점"},
+        {"date": "2025-12-12", "type": "expense", "amount": 185000, "payee": "쿠팡"},
+        {"date": "2025-12-14", "type": "expense", "amount": 34000, "payee": "스타벅스"},
+        {"date": "2025-12-16", "type": "expense", "amount": 480000, "payee": "포차일번지"},
+        {"date": "2025-12-18", "type": "expense", "amount": 28000, "payee": "GS25"},
+        {"date": "2025-12-20", "type": "expense", "amount": 128000, "payee": "CGV"},
+        {"date": "2025-12-21", "type": "expense", "amount": 122000, "payee": "서울도시가스"},
+        {"date": "2025-12-23", "type": "expense", "amount": 245000, "payee": "가족 모임"},
+        {"date": "2025-12-25", "type": "expense", "amount": 180000, "payee": "크리스마스 파티"},
+        {"date": "2025-12-25", "type": "income", "amount": 3000000, "payee": "ABC주식회사"},
+        {"date": "2025-12-27", "type": "expense", "amount": 198000, "payee": "무신사"},
+        {"date": "2025-12-30", "type": "expense", "amount": 156000, "payee": "롯데백화점"},
+        {"date": "2025-12-31", "type": "expense", "amount": 265000, "payee": "제주호텔"}
+      ]
+    }
+  ]
+}
