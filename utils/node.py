@@ -137,7 +137,6 @@ def hitl_confirm_input(state:GraphState) -> GraphState:
     }
     
     decision = interrupt({
-        "step": "confirm_input",
         "message": "목표 금액/기간, 투자 가능 금액을 확인 및 수정해주세요.",
         "proposed": proposed,
         "fields": [
@@ -306,7 +305,6 @@ def build_portfolios(state: GraphState):
     print("포트폴리오 생성 시작")
     # HUMAN-in-the-loop로 비율을 입력받음
     decision = interrupt({
-        "step": "select_portfolio_ratio",
         "message": "적금/주식 투자 비율(0~100%)을 입력해주세요. \n(예: 30은 적금 70%, 주식 30%)",
         "proposed": {"stock_allocation_pct": 30},
         "fields": [

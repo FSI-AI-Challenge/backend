@@ -9,6 +9,7 @@ from progress import PROGRESS_MAP
 from utils.node import *
 from utils.state import *
 from graph import agent
+from dataclasses import asdict
 import json
 import traceback
 import asyncio
@@ -68,6 +69,46 @@ async def chat_stream(req: Request):
                     output = data.get("output")
 
                     if isinstance(output, dict):
+                        if node == 'build_indicators':
+                            raw = output['indicators']
+                            for rate, portfolio in raw.items():
+                                fin_name = portfolio.fin_prdt.fin_prdt_nm
+                                stock_name = portfolio.stock_prdts.kor_co_nm
+                                final_amount = portfolio.final_amount
+                                allocation = portfolio.stock_allocation * 100
+
+                                payload = {
+                                    "kind": "portfolio",
+                                    "portfolio": {
+                                        "fin_name": fin_name,
+                                        "stock_name": stock_name,
+                                        "final_amount": final_amount,
+                                        "allocation": allocation,  # 선택 비율도 같이 주고 싶으면
+                                    },
+                                }
+                                yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
+                            yield f"data: {json.dumps({'kind': 'done'}, ensure_ascii=False)}\n\n"
+
+
+                        if node == 'build_portfolios':
+                            portfolio = output['user_selected_portfolio']
+                            fin_name = portfolio.fin_prdt.fin_prdt_nm
+                            stock_name = portfolio.stock_prdts.kor_co_nm
+                            final_amount = portfolio.final_amount
+                            allocation = portfolio.stock_allocation * 100
+
+                            payload = {
+                                "kind": "portfolio",
+                                "portfolio": {
+                                    "fin_name": fin_name,
+                                    "stock_name": stock_name,
+                                    "final_amount": final_amount,
+                                    "allocation": allocation,
+                                },
+                            }
+                            yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
+                            yield f"data: {json.dumps({'kind': 'done'}, ensure_ascii=False)}\n\n"
+
                         if '__interrupt__' in output:
                             raw = output['__interrupt__']
                             intr_obj = raw[0] if isinstance(raw, (list, tuple)) else raw
