@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 import requests
-import json, sys
 import os
 import pandas as pd
 

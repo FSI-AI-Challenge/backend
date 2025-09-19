@@ -8,4 +8,8 @@ PROGRESS_MAP = {
     "select_stock_products": ("select_stock_products", "위험 자산 조회 중..."),
     "build_indicators": ("build_indicators", "포트폴리오 후보 생성 중..."),
     "build_portfolios": ("build_portfolios", "포트폴리오 생성 중..."),
+    "crawl_news": ("crawl_news", "뉴스 정보 수집 중..."),
+    "summarize_news": ("summarize_news", "뉴스 정보 요약 중..."),
+    "analyze_sentiment": ("analyze_sentiment", "주가 긍부정 판단 중..."),
+    "evaluate_rebalance": ("evaluate_rebalance", "리밸런싱 판단 중..."),
 }

@@ -1,13 +1,28 @@
 # pip install yfinance pandas numpy python-dateutil
 import yfinance as yf
 import pandas as pd
-import numpy as np
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, timedelta
 import FinanceDataReader as fdr
-import re, json
-from typing import Dict, Any, Tuple
+import os, re, json
+from typing import Dict, Any, Tuple, List
 
+from langchain_naver_community.tool import NaverNewsSearch
+from email.utils import parsedate_to_datetime
+import hashlib
+from dotenv import load_dotenv
+
+load_dotenv()
+NAVER_ID = os.getenv("NAVER_CLIENT_ID")
+NAVER_SECRET = os.getenv("NAVER_CLIENT_SECRET")
+
+_TAG_RE = re.compile(r"</?[^>]+>")
+_REFINE_LIST = [
+    "{q}",
+    "{q} 실적 OR 공시",
+    "{q} 뉴스 -블로그 -카페",
+    "site:news.naver.com {q}",
+]
 
 def extract_json(text: str) -> Dict[str, Any]:
     # ```json ... ``` 블록 우선 추출 → 실패 시 중괄호 첫/끝 매칭
@@ -199,3 +214,87 @@ if __name__ == "__main__":
         print(df_top10)
     else:
         print(df_out.head())
+        
+
+def get_naver_tool() -> NaverNewsSearch:
+    if not NAVER_ID or not NAVER_SECRET:
+        raise RuntimeError("NAVER_CLIENT_ID / NAVER_CLIENT_SECRET 환경변수 없음")
+    return NaverNewsSearch(naver_client_id=NAVER_ID, naver_client_secret=NAVER_SECRET)
+
+# ---- 뉴스 전처리 & 검색 헬퍼 ----
+
+def _strip_tags(s: str) -> str:
+    return _TAG_RE.sub("", s or "").strip()
+
+def _to_iso8601(s: str) -> str:
+    if not s:
+        return ""
+    try:
+        dt = parsedate_to_datetime(s)
+        return dt.isoformat()
+    except Exception:
+        m = re.search(r"(\d{4})[-./](\d{1,2})[-./](\d{1,2})", s)
+        if m:
+            y, mo, d = m.group(1), m.group(2).zfill(2), m.group(3).zfill(2)
+            return f"{y}-{mo}-{d}"
+        return ""
+
+def _normalize_naver_payload(raw: Any) -> dict:
+    try:
+        if isinstance(raw, str):
+            try:
+                data = json.loads(raw)
+            except Exception:
+                data = {"items": []}
+        elif isinstance(raw, list):
+            data = {"items": raw}
+        elif isinstance(raw, dict):
+            data = raw
+        else:
+            data = {"items": []}
+    except Exception:
+        data = {"items": []}
+    if not isinstance(data, dict):
+        data = {"items": []}
+    if not isinstance(data.get("items"), list):
+        data["items"] = []
+    return data
+
+def _fingerprint(title: str, link: str) -> str:
+    base = (title or "").strip().lower() + "|" + (link or "").strip().lower()
+    return hashlib.md5(base.encode("utf-8")).hexdigest()
+
+def dedup_and_clean(items: List[Dict[str, Any]]) -> Tuple[List[Dict], int]:
+    seen, out, dropped = set(), [], 0
+    for it in items:
+        title = _strip_tags(it.get("title") or it.get("headline") or "")
+        link  = (it.get("originallink") or it.get("link") or it.get("url") or "").strip()
+        content = _strip_tags(it.get("content") or it.get("description") or it.get("summary") or "")
+        pub_raw = it.get("published_at") or it.get("pubDate") or it.get("date") or ""
+        pub = _to_iso8601(pub_raw)
+
+        if not title or not link:
+            dropped += 1
+            continue
+
+        fp = _fingerprint(title, link)
+        if fp in seen:
+            dropped += 1
+            continue
+        seen.add(fp)
+
+        out.append({"title": title, "link": link, "content": content, "published_at": pub})
+    return out, dropped
+
+
+def refined_query(q: str, attempt: int) -> str:
+    pat = _REFINE_LIST[min(attempt, len(_REFINE_LIST)-1)]
+    return pat.replace("{q}", q)
+
+def naver_search_once(naver_tool, query: str, start: int, display: int) -> List[Dict[str, Any]]:
+    try:
+        raw = naver_tool.run(query, display=display, start=start, sort="date")
+    except TypeError:
+        raw = naver_tool.run(query, display=display)
+    payload = _normalize_naver_payload(raw)
+    return payload.get("items", [])
