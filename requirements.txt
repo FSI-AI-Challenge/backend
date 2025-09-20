@@ -1,0 +1,23 @@
+# API Server
+fastapi
+uvicorn[standard]
+
+# LangChain & LangGraph for AI Agent
+langchain>=0.2
+langgraph>=0.1
+langchain-ollama
+langchain-teddynote
+langchain-naver-community
+
+# Data Handling & API
+requests
+pandas
+numpy
+python-dateutil
+
+# Environment Variables
+python-dotenv
+
+# Finance Data
+yfinance
+FinanceDataReader
